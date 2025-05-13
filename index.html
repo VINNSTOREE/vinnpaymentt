@@ -257,20 +257,7 @@
       qrPopup.style.display = "flex";
     }
 
-      <audio id="bg-music" autoplay loop>
-  <source src="https://files.catbox.moe/bb37pn.mp4" type="audio/mpeg">
-</audio>
-
-       const music = document.getElementById('bg-music');
-
-          // Autoplay workaround for browsers
-          document.addEventListener('DOMContentLoaded', () => {
-           const playMusic = () => {
-           music.play();
-           document.removeEventListener('click', playMusic);
-           };
-           document.addEventListener('click', playMusic);
-        });
+      
     
     document.getElementById("qrPopup").addEventListener("click", function (event) {
   if (event.target === this || event.target.classList.contains("qr-image")) {
