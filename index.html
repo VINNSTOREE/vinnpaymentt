@@ -7,6 +7,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
+    /* Variabel Tema */
     :root {
       --bg-color: #000;
       --text-color: #fff;
@@ -19,7 +20,7 @@
       --copy-border: cyan;
       --popup-bg: rgba(0, 255, 255, 0.2);
     }
-
+    /* Tema Light Mode */
     body.light-mode {
       --bg-color: #fff;
       --text-color: #000;
@@ -41,25 +42,15 @@
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
     }
-
     .payment-box {
       background: var(--box-bg);
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px red;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
       max-width: 400px;
       margin: auto;
-      animation: neonRotate 3s linear infinite;
-      border: 3px solid transparent;
-      background-image: linear-gradient(120deg, red, darkred, red);
-      background-size: 200% 200%;
+      transition: background 0.3s, box-shadow 0.3s;
     }
-
-    @keyframes neonRotate {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
     .thumbnail {
       width: 100px;
       height: 100px;
@@ -68,7 +59,6 @@
       margin-bottom: 10px;
       box-shadow: 0 0 15px cyan;
     }
-
     .neon-btn {
       background: var(--btn-bg);
       color: var(--btn-text);
@@ -82,13 +72,14 @@
       transition: 0.3s;
       margin-bottom: 20px;
     }
-
     .neon-btn:hover {
       background: var(--btn-text);
       color: var(--btn-bg);
       box-shadow: 0 0 20px var(--btn-border);
     }
-
+    .neon-btn:active {
+      transform: scale(0.9);
+    }
     .copy-box {
       display: flex;
       align-items: center;
@@ -103,7 +94,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-
+    /* Style untuk membuat logo pembayaran bulat */
     .payment-logo {
       width: 50px;
       height: 50px;
@@ -112,24 +103,54 @@
       margin-right: 10px;
       box-shadow: 0 0 10px var(--btn-border);
     }
-
-    #modeToggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      background-color: var(--btn-text);
-      color: var(--btn-bg);
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--btn-border);
-      transition: background-color 0.3s, color 0.3s;
+    .copy-box span {
+      flex-grow: 1;
+      text-align: left;
     }
-
-    #modeToggle:hover { opacity: 0.8; }
-
+    .copy-box button {
+      background: var(--btn-text);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--btn-bg);
+      transition: 0.2s;
+      margin-left: 10px;
+    }
+    .copy-box button:active {
+      transform: scale(0.9);
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      align-items: center;
+      justify-content: center;
+    }
+    .popup-content {
+      background: var(--btn-text);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--btn-border);
+      text-align: center;
+    }
+    .qr-image {
+      max-width: 75%;
+      height: auto;
+      display: block;
+      margin: auto;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--btn-text);
+    }
+    /* Popup Copy Berhasil dengan Tema Neon */
     #copyPopup {
       display: none;
       position: fixed;
@@ -146,38 +167,95 @@
       box-shadow: 0 0 15px var(--btn-border);
       animation: fadeInOut 1.5s ease-in-out;
     }
-
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
       20% { opacity: 1; transform: translateX(-50%) translateY(0); }
       80% { opacity: 1; transform: translateX(-50%) translateY(0); }
       100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
     }
+    /* Tombol mode toggle (bulat dan di pojok kanan atas) */
+    #modeToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background-color: var(--btn-text);
+      color: var(--btn-bg);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--btn-border);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #modeToggle:hover {
+      opacity: 0.8;
+    }
+  
+@keyframes neonRotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.payment-box.neon-border {
+  border: 3px solid transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(120deg, red, darkred, red);
+  background-size: 200% 200%;
+  animation: neonRotate 3s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  padding: 20px;
+  box-shadow: 0 0 20px red;
+}
 
-  </style>
+</style>
 </head>
-
-<body onclick="document.getElementById('bgMusic').play()">
-
-  <!-- Musik Background -->
-  <video id="bgMusic" autoplay loop hidden>
-    <source src="musik.mp4" type="video/mp4">
-  </video>
-
-  <!-- Tombol Mode -->
+<body>
+  <!-- Tombol Mode Toggle -->
   <button id="modeToggle" onclick="toggleMode()">☀︎</button>
 
-  <div class="payment-box">
+  <div class="payment-box neon-border">
     <img src="thumbnail.png" alt="Thumbnail" class="thumbnail" />
     <h2>Metode Pembayaran</h2>
     <button class="neon-btn" onclick="showQR()">QRIS</button>
 
     <div class="copy-box">
-      <img src="dana.png" class="payment-logo" />
+      <img src="dana.png" alt="Dana" class="payment-logo" />
       <span>Dana</span>
       <button onclick="copyToClipboard('081224583364')">Copy</button>
     </div>
-    <!-- Tambahan metode pembayaran lainnya... -->
+    <div class="copy-box">
+      <img src="gopay.png" alt="Gopay" class="payment-logo" />
+      <span>Gopay</span>
+      <button onclick="copyToClipboard('081224583364')">Copy</button>
+    </div>
+    <div class="copy-box">
+      <img src="sea.png" alt="SeaBank" class="payment-logo" />
+      <span>SeaBank</span>
+      <button onclick="copyToClipboard('081224583364')">Copy</button>
+    </div>
+    <div class="copy-box">
+      <img src="shopee.png" alt="ShopeePay" class="payment-logo" />
+      <span>ShopeePay</span>
+      <button onclick="copyToClipboard('081224583364')">Copy</button>
+    </div>
+    <div class="copy-box">
+      <img src="pulsa.png" alt="Pulsa Telkom" class="payment-logo" />
+      <span>Pulsa Axis</span>
+      <button onclick="copyToClipboard('081224583364')">Copy</button>
+    </div>
+    <div class="copy-box">
+      <img src="ovo.png" alt="Ovo" class="payment-logo" />
+      <span>Ovo</span>
+      <button onclick="copyToClipboard('081224583364')">Copy</button>
+    </div>
     <br />
     <a href="https://saweria.co/VinnOfficialXtzy" target="_blank" style="color: var(--btn-text); text-decoration: none; font-weight: bold;">Bayar via Saweria</a>
   </div>
@@ -193,40 +271,43 @@
 
   <div class="footer">
     <a href="https://wa.me/6285352408213" target="_blank" style="color: var(--btn-text); text-decoration: none; font-weight: bold;">
-      © VINN STORE - Kevin
+        © VINN STORE - Kevin
     </a>
-  </div>
+</div>
 
   <script>
     function showQR() {
-      document.getElementById("qrPopup").style.display = "flex";
+      let qrPopup = document.getElementById("qrPopup");
+      qrPopup.style.display = "flex";
     }
 
+      
+    
     document.getElementById("qrPopup").addEventListener("click", function (event) {
-      if (event.target === this || event.target.classList.contains("qr-image")) {
-        this.style.display = "none";
-      }
-    });
+  if (event.target === this || event.target.classList.contains("qr-image")) {
+    this.style.display = "none";
+  }
+});
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       let popup = document.getElementById("copyPopup");
       popup.style.display = "block";
-      setTimeout(() => { popup.style.display = "none"; }, 1500);
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 1500);
     }
 
     function toggleMode() {
       document.body.classList.toggle("light-mode");
+      // Ubah ikon tombol mode berdasarkan mode aktif
       const modeToggle = document.getElementById("modeToggle");
-      modeToggle.textContent = document.body.classList.contains("light-mode") ? "☾" : "☀︎";
+      if (document.body.classList.contains("light-mode")) {
+        modeToggle.textContent = "☾"; // ikon bulan untuk light mode
+      } else {
+        modeToggle.textContent = "☀︎"; // ikon matahari untuk dark mode
+      }
     }
-
-    // Fallback jika autoplay diblokir
-    document.addEventListener("click", function () {
-      var bgMusic = document.getElementById("bgMusic");
-      if (bgMusic && bgMusic.paused) bgMusic.play();
-    }, { once: true });
   </script>
-
 </body>
 </html>
