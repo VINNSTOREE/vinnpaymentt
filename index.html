@@ -206,11 +206,6 @@
   background-image: linear-gradient(120deg, red, darkred, red);
   background-size: 200% 200%;
   animation: neonRotate 3s linear infinite;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
   padding: 20px;
   box-shadow: 0 0 20px red;
 }
@@ -218,6 +213,12 @@
 </style>
 </head>
 <body>
+
+<audio id="bgMusic" autoplay loop>
+  <source src="musik.mp4" type="audio/mpeg">
+  Browser kamu tidak mendukung audio tag.
+</audio>
+
   <!-- Tombol Mode Toggle -->
   <button id="modeToggle" onclick="toggleMode()">☀︎</button>
 
@@ -308,6 +309,17 @@
         modeToggle.textContent = "☀︎"; // ikon matahari untuk dark mode
       }
     }
-  </script>
+  
+window.addEventListener('DOMContentLoaded', function() {
+  var audio = document.getElementById("bgMusic");
+  var playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(function(error) {
+      console.log("Autoplay gagal, menunggu interaksi pengguna.");
+    });
+  }
+});
+
+</script>
 </body>
 </html>
